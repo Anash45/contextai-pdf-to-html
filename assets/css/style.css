@@ -1,0 +1,151 @@
+@font-face {
+  font-family: "BLK Fort";
+  src: url(../fonts/FortTRIAL-Book.otf) format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BLK Fort";
+  src: url(../fonts/FortTRIAL-Medium.otf) format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BLK Fort";
+  src: url(../fonts/FortTRIAL-Bold.otf) format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BLK Fort";
+  src: url(../fonts/FortTRIAL-Extrabold.otf) format("opentype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BLK Fort";
+  src: url(../fonts/FortTRIAL-Black.otf) format("opentype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+.text-orange {
+  color: #ff4713;
+}
+body {
+  background-color: #c0c0c0;
+  font-family: "BLK Fort", Arial, Helvetica, sans-serif;
+}
+.page {
+  height: 7.5in;
+  width: 10in;
+  background-color: #ffffff;
+}
+
+.fw-extrabold {
+  font-weight: 800;
+}
+
+.fw-black {
+  font-weight: 900;
+}
+
+.p0-date {
+  font-size: 14pt;
+}
+
+.p0-title1 {
+  font-size: 45pt;
+}
+
+.p0-title2 {
+  font-size: 40pt;
+}
+
+.p0-logo {
+  height: 35px;
+}
+
+.p0-center {
+  position: absolute;
+  top: 50%;
+  left: 24px;
+  transform: translateY(-50%);
+}
+
+.page-number {
+  text-align: right;
+  color: #ffffff;
+  font-size: 8pt;
+}
+
+.p1-title {
+  font-size: 22pt;
+  line-height: 100%;
+}
+
+.p1-description {
+  line-height: 100%;
+  color: #000000;
+  font-size: 11pt;
+}
+
+.p1-charts {
+  margin-top: 24px;
+  height: 4.5in;
+  width: 100%;
+}
+
+.p1-canvas {
+  width: calc(100% + 8px) !important;
+  height: 100% !important;
+  transform: translateX(-8px);
+}
+
+.p1-charts > div::after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: calc(100% - 7px);
+  top: 0;
+  background-color: #7c7b7f;
+}
+
+.p1-charts > div:nth-child(1):after {
+  left: 25%;
+}
+
+.p1-charts > div:nth-child(2):after {
+  left: 50%;
+}
+
+.p1-charts > div:nth-child(3):after {
+  left: 75%;
+}
+
+.p1-charts::after {
+  content: "";
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  bottom: 5px;
+  background-color: #7c7b7f;
+}
+
+.p1-bar-label{
+    color: #000000;
+    font-weight: 700;
+    font-size: 9pt;
+}
+
+.p1-foot-desc{
+    font-size: 7.5pt;
+}
