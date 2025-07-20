@@ -11,12 +11,14 @@
     <main class="pages d-flex flex-column gap-4 align-items-center py-5">
       <section class="page d-flex flex-column">
         <div class="content py-5 px-4 flex-grow-1 position-relative">
-          <p class="p0-date fw-bold mb-0 text-end mb-0">
-            January 20, 2025
-          </p>
+          <p class="p0-date fw-bold mb-0 text-end mb-0">January 20, 2025</p>
           <div class="position-absolute p0-center d-flex flex-column gap-3">
             <div>
-                <img src="./assets/blackrock-logo-nav.svg" alt="Logo" class="p0-logo">
+              <img
+                src="./assets/blackrock-logo-nav.svg"
+                alt="Logo"
+                class="p0-logo"
+              />
             </div>
             <div class="d-flex flex-column gap-1">
               <h2 class="p0-title1 fw-black text-orange mb-0 lh-1">
@@ -32,64 +34,715 @@
       <section class="page d-flex flex-column">
         <div class="content pt-5 px-4 flex-grow-1 position-relative">
           <div class="d-flex flex-column text-center mb-2">
-            <h3 class="fw-extrabold text-orange p1-title">A broadly diversified business</h3>
-            <h3 class="fw-extrabold text-orange p1-title">across clients, products and geographies</h3>
+            <h3 class="fw-extrabold text-orange page-title">
+              A broadly diversified business
+            </h3>
+            <h3 class="fw-extrabold text-orange page-title">
+              across clients, products and geographies
+            </h3>
           </div>
           <div class="d-flex flex-column text-center">
-            <p class="p1-description mb-1">Assets Under Management of $11.6 trillion at December 31, 2024</p>
-            <p class="p1-description mb-0">Q4 2024 Base Fees and Securities Lending Revenue of $4.4 billion</p>
+            <p class="p1-description mb-1">
+              Assets Under Management of $11.6 trillion at December 31, 2024
+            </p>
+            <p class="p1-description mb-0">
+              Q4 2024 Base Fees and Securities Lending Revenue of $4.4 billion
+            </p>
           </div>
           <div class="p1-charts d-flex position-relative">
             <div class="col-3 d-flex flex-column">
-                <p class="text-center fw-bold text-black">Client Type</p>
-                <canvas id="p1Chart1Canvas" class="flex-grow p1-canvas" style="height: 100%;"></canvas>
+              <p class="text-center fw-bold text-black">Client Type</p>
+              <canvas
+                id="p1Chart1Canvas"
+                class="flex-grow p1-canvas"
+                style="height: 100%"
+              ></canvas>
             </div>
             <div class="col-3 d-flex flex-column">
-                <p class="text-center fw-bold text-black">Style</p>
-                <canvas id="p1Chart2Canvas" class="flex-grow p1-canvas" style="height: 100%;"></canvas>
+              <p class="text-center fw-bold text-black">Style</p>
+              <canvas
+                id="p1Chart2Canvas"
+                class="flex-grow p1-canvas"
+                style="height: 100%"
+              ></canvas>
             </div>
             <div class="col-3 d-flex flex-column">
-                <p class="text-center fw-bold text-black">Product Type</p>
-                <canvas id="p1Chart3Canvas" class="flex-grow p1-canvas" style="height: 100%;"></canvas>
+              <p class="text-center fw-bold text-black">Product Type</p>
+              <canvas
+                id="p1Chart3Canvas"
+                class="flex-grow p1-canvas"
+                style="height: 100%"
+              ></canvas>
             </div>
             <div class="col-3 d-flex flex-column">
-                <p class="text-center fw-bold text-black">Region</p>
-                <canvas id="p1Chart4Canvas" class="flex-grow p1-canvas" style="height: 100%;"></canvas>
+              <p class="text-center fw-bold text-black">Region</p>
+              <canvas
+                id="p1Chart4Canvas"
+                class="flex-grow p1-canvas"
+                style="height: 100%"
+              ></canvas>
             </div>
           </div>
           <div class="d-flex position-relative">
             <div class="col-3 d-flex text-center mt-1">
-                <div class="col-6"><p class="p1-bar-label mb-0">AUM</p></div>
-                <div class="col-6"><p class="p1-bar-label mb-0">Base Fees</p></div>
+              <div class="col-6"><p class="p1-bar-label mb-0">AUM</p></div>
+              <div class="col-6">
+                <p class="p1-bar-label mb-0">Base Fees</p>
+              </div>
             </div>
             <div class="col-3 d-flex text-center mt-1">
-                <div class="col-6"><p class="p1-bar-label mb-0">AUM</p></div>
-                <div class="col-6"><p class="p1-bar-label mb-0">Base Fees</p></div>
+              <div class="col-6"><p class="p1-bar-label mb-0">AUM</p></div>
+              <div class="col-6">
+                <p class="p1-bar-label mb-0">Base Fees</p>
+              </div>
             </div>
             <div class="col-3 d-flex text-center mt-1">
-                <div class="col-6"><p class="p1-bar-label mb-0">AUM</p></div>
-                <div class="col-6"><p class="p1-bar-label mb-0">Base Fees</p></div>
+              <div class="col-6"><p class="p1-bar-label mb-0">AUM</p></div>
+              <div class="col-6">
+                <p class="p1-bar-label mb-0">Base Fees</p>
+              </div>
             </div>
             <div class="col-3 d-flex text-center mt-1">
-                <div class="col-6"><p class="p1-bar-label mb-0">AUM</p></div>
-                <div class="col-6"><p class="p1-bar-label mb-0">Base Fees</p></div>
+              <div class="col-6"><p class="p1-bar-label mb-0">AUM</p></div>
+              <div class="col-6">
+                <p class="p1-bar-label mb-0">Base Fees</p>
+              </div>
             </div>
           </div>
-          <p class="p1-foot-desc mt-3 text-black">Base fees include investment advisory, administration fees and securities lending revenue. Base Fees and AUM by region data is based on client domicile. </p>
+          <p class="p1-foot-desc mt-3 text-black">
+            Base fees include investment advisory, administration fees and
+            securities lending revenue. Base Fees and AUM by region data is
+            based on client domicile.
+          </p>
         </div>
         <div class="page-footer bg-black px-4 py-1">
-            <div class="d-flex align-items-center justify-content-between px-2 py-2">
-                <img src="./assets/blackrock-logo-white.svg" alt="Logo" height="14">
-                <span class="page-number">1</span>
+          <div
+            class="d-flex align-items-center justify-content-between px-2 py-2"
+          >
+            <img
+              src="./assets/blackrock-logo-white.svg"
+              alt="Logo"
+              height="14"
+            />
+            <span class="page-number">1</span>
+          </div>
+        </div>
+      </section>
+      <section class="page d-flex flex-column">
+        <div class="content pt-4 mt-2 px-4 flex-grow-1 position-relative">
+          <div class="d-flex flex-column text-center mb-2">
+            <h3 class="fw-extrabold text-orange page-title">Net flows</h3>
+            <h3 class="text-orange page-subtitle mb-0">($ in billions)</h3>
+          </div>
+          <div class="row px-4">
+            <div class="col-6 d-flex px-4 flex-column justify-content-between">
+              <div class="d-flex flex-column">
+                <h5 class="p2-chart-title text-center fw-bold text-black">
+                  Total BlackRock
+                </h5>
+                <div class="d-flex flex-column gap-2">
+                  <div
+                    class="d-flex align-items-center gap-3 justify-content-between w-100"
+                  >
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">3%</span>
+                    </div>
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">3%</span>
+                    </div>
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">4%</span>
+                    </div>
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">4%</span>
+                    </div>
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">3%</span>
+                    </div>
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">3%</span>
+                    </div>
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">3%</span>
+                    </div>
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">5%</span>
+                    </div>
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">6%</span>
+                    </div>
+                  </div>
+                  <div
+                    class="d-flex align-items-center gap-3 justify-content-between w-100"
+                  >
+                    <div
+                      class="p2 light-orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">0%</span>
+                    </div>
+                    <div
+                      class="p2 light-orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">0%</span>
+                    </div>
+                    <div
+                      class="p2 light-orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">0%</span>
+                    </div>
+                    <div
+                      class="p2 light-orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">1%</span>
+                    </div>
+                    <div
+                      class="p2 light-orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">1%</span>
+                    </div>
+                    <div
+                      class="p2 light-orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">1%</span>
+                    </div>
+                    <div
+                      class="p2 light-orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">1%</span>
+                    </div>
+                    <div
+                      class="p2 light-orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">3%</span>
+                    </div>
+                    <div
+                      class="p2 light-orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">4%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex flex-column gap-0">
+                <div
+                  id="p2c1customLegend"
+                  class="d-flex align-items-center p2-custom-legends justify-content-center gap-4 mt-2"
+                ></div>
+                <canvas
+                  id="p2Chart1"
+                  style="width: 100%; height: 110px"
+                ></canvas>
+                <div
+                  class="customXticks d-flex justify-content-around"
+                  id="p2c1customXticks"
+                ></div>
+              </div>
             </div>
+            <div class="col-6 d-flex px-4 flex-column justify-content-between">
+              <div class="d-flex flex-column">
+                <h5 class="p2-chart-title text-center fw-bold text-black">
+                  Retail Long-term
+                </h5>
+                <div class="d-flex flex-column gap-2">
+                  <div
+                    class="d-flex align-items-center gap-3 justify-content-between w-100"
+                  >
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">(2)%</span>
+                    </div>
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">(3)%</span>
+                    </div>
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">(2)%</span>
+                    </div>
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">(2)%</span>
+                    </div>
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">(1)%</span>
+                    </div>
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">0%</span>
+                    </div>
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">0%</span>
+                    </div>
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">1%</span>
+                    </div>
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">3%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex flex-column gap-0">
+                <canvas
+                  id="p2Chart2"
+                  style="width: 100%; height: 110px"
+                ></canvas>
+                <div
+                  class="customXticks d-flex justify-content-around"
+                  id="p2c2customXticks"
+                ></div>
+              </div>
+            </div>
+          </div>
+          <div class="row px-4 mt-2">
+            <div class="col-6 d-flex px-4 flex-column justify-content-between">
+              <div class="d-flex flex-column">
+                <h5 class="p2-chart-title text-center fw-bold text-black">
+                  ETFs
+                </h5>
+                <div class="d-flex flex-column gap-2">
+                  <div
+                    class="d-flex align-items-center gap-3 justify-content-between w-100"
+                  >
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">7%</span>
+                    </div>
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">6%</span>
+                    </div>
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">7%</span>
+                    </div>
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">7%</span>
+                    </div>
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">6%</span>
+                    </div>
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">8%</span>
+                    </div>
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">8%</span>
+                    </div>
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">11%</span>
+                    </div>
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">11%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex flex-column gap-0">
+                <canvas
+                  id="p2Chart3"
+                  style="width: 100%; height: 110px"
+                ></canvas>
+                <div
+                  class="customXticks d-flex justify-content-around"
+                  id="p2c3customXticks"
+                ></div>
+              </div>
+            </div>
+            <div class="col-6 d-flex px-4 flex-column justify-content-between">
+              <div class="d-flex flex-column">
+                <h5 class="p2-chart-title text-center fw-bold text-black">
+                  Institutional Long-term
+                </h5>
+                <div class="d-flex flex-column gap-2">
+                  <div
+                    class="d-flex align-items-center gap-3 justify-content-between w-100"
+                  >
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">3%</span>
+                    </div>
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">3%</span>
+                    </div>
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">4%</span>
+                    </div>
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">4%</span>
+                    </div>
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">3%</span>
+                    </div>
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">3%</span>
+                    </div>
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">3%</span>
+                    </div>
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">5%</span>
+                    </div>
+                    <div
+                      class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">6%</span>
+                    </div>
+                  </div>
+                  <div
+                    class="d-flex align-items-center gap-3 justify-content-between w-100"
+                  >
+                    <div
+                      class="p2 light-orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">0%</span>
+                    </div>
+                    <div
+                      class="p2 light-orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">0%</span>
+                    </div>
+                    <div
+                      class="p2 light-orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">0%</span>
+                    </div>
+                    <div
+                      class="p2 light-orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">1%</span>
+                    </div>
+                    <div
+                      class="p2 light-orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">1%</span>
+                    </div>
+                    <div
+                      class="p2 light-orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">1%</span>
+                    </div>
+                    <div
+                      class="p2 light-orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">1%</span>
+                    </div>
+                    <div
+                      class="p2 light-orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">3%</span>
+                    </div>
+                    <div
+                      class="p2 light-orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                    >
+                      <span class="text-white">4%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="d-flex flex-column gap-0">
+                <div
+                  id="p2c4customLegend"
+                  class="d-flex align-items-center p2-custom-legends justify-content-center gap-4 mt-2"
+                ></div>
+                <canvas
+                  id="p2Chart4"
+                  style="width: 100%; height: 110px"
+                ></canvas>
+                <div
+                  class="customXticks d-flex justify-content-around"
+                  id="p2c4customXticks"
+                ></div>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex flex-column px-4 mt-1">
+            <div class="d-flex align-items-center gap-5">
+              <div class="d-flex align-items-center gap-3">
+                <div
+                  class="p2 orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                ></div>
+                <span class="p2-info">LTM organic asset growth rate (%)</span>
+              </div>
+              <div class="d-flex align-items-center gap-3">
+                <div
+                  class="p2 orange-ball light-orange-ball chart-ball d-flex align-items-center justify-content-center flex-column"
+                ></div>
+                <span class="p2-info"
+                  >LTM organic base fee growth rate (%)</span
+                >
+              </div>
+            </div>
+            <p class="page-desc mb-0 mt-1">
+              LTM organic asset growth rate measures rolling last twelve months
+              net flows over beginning of period assets. LTM organic base fee
+              growth rate is calculated by dividing net new base fees earned on
+              net asset inflows for the LTM period by the base fee run-rate at
+              the beginning of the period. <br />
+              Totals may not add due to rounding.
+            </p>
+          </div>
+        </div>
+        <div class="page-footer bg-black px-4 py-1">
+          <div
+            class="d-flex align-items-center justify-content-between px-2 py-2"
+          >
+            <img
+              src="./assets/blackrock-logo-white.svg"
+              alt="Logo"
+              height="14"
+            />
+            <span class="page-number">2</span>
+          </div>
+        </div>
+      </section>
+      <section class="page d-flex flex-column">
+        <div class="content pt-4 mt-2 px-4 flex-grow-1 position-relative">
+          <div class="d-flex flex-column text-center mb-2">
+            <h3 class="fw-extrabold text-orange page-title">Profitability</h3>
+            <h3 class="text-orange page-subtitle mb-0">
+              ($ in millions, except per share data)
+            </h3>
+          </div>
+
+          <div class="row px-4 py-4">
+            <div class="col-6 d-flex px-4 flex-column justify-content-between">
+              <div class="d-flex flex-column gap-0">
+                <h5 class="p2-chart-title text-center fw-bold text-black">
+                  Net Income and EPS, as adjusted
+                </h5>
+                <div class="d-flex flex-column gap-0 combo-charts">
+                  <canvas
+                    id="p3c1LineChart"
+                    height="125"
+                    class="comboLineChart"
+                  ></canvas>
+                  <canvas
+                    id="p3c1BarChart"
+                    height="250"
+                    class="comboBarChart"
+                  ></canvas>
+                  <div
+                    class="customXticks d-flex justify-content-around"
+                    id="p3c1customXticks"
+                  ></div>
+                </div>
+                <div
+                  id="p3c1customLegends"
+                  class="d-flex combo-legends align-items-center p2-custom-legends justify-content-center gap-3 mt-0"
+                ></div>
+              </div>
+            </div>
+            <div class="col-6 d-flex px-4 flex-column justify-content-between">
+              <div class="d-flex flex-column gap-0">
+                <h5 class="p2-chart-title text-center fw-bold text-black">
+                  Operating Income and Margin, as adjusted
+                </h5>
+                <div class="d-flex flex-column gap-0 combo-charts">
+                  <canvas
+                    id="p3c2LineChart"
+                    height="125"
+                    class="comboLineChart"
+                  ></canvas>
+                  <canvas
+                    id="p3c2BarChart"
+                    height="250"
+                    class="comboBarChart"
+                  ></canvas>
+                  <div
+                    class="customXticks d-flex justify-content-around"
+                    id="p3c2customXticks"
+                  ></div>
+                </div>
+                <div
+                  id="p3c2customLegends"
+                  class="d-flex combo-legends align-items-center p2-custom-legends justify-content-center gap-3 mt-0"
+                ></div>
+              </div>
+            </div>
+            <p class="mt-5 pt-4 mb-0 page-desc">
+              For further information and reconciliations to GAAP, see page 14
+              of this earnings release supplement, notes (1) through (3) to the
+              condensed consolidated statements of income and supplemental
+              information in the current earnings release, as well as previously
+              filed Form 10-Ks, 10-Qs and 8-Ks.
+            </p>
+          </div>
+        </div>
+        <div class="page-footer bg-black px-4 py-1">
+          <div
+            class="d-flex align-items-center justify-content-between px-2 py-2"
+          >
+            <img
+              src="./assets/blackrock-logo-white.svg"
+              alt="Logo"
+              height="14"
+            />
+            <span class="page-number">3</span>
+          </div>
+        </div>
+      </section>
+      <section class="page d-flex flex-column">
+        <div class="content pt-4 mt-2 px-4 flex-grow-1 position-relative">
+          <div class="d-flex flex-column text-center mb-2">
+            <h3 class="fw-extrabold text-orange page-title">
+              Capital management
+            </h3>
+            <h3 class="text-orange page-subtitle mb-0">
+              (amounts in millions, except per share data)
+            </h3>
+          </div>
+
+          <div class="row px-4 py-4">
+            <div class="col-6 d-flex px-4 flex-column justify-content-between">
+              <div class="d-flex flex-column gap-0">
+                <h5 class="p2-chart-title text-center fw-bold text-black">
+                  Share repurchases and <br />
+                  weighted-average diluted shares
+                </h5>
+                <div class="d-flex flex-column gap-0 combo-charts">
+                  <canvas
+                    id="p4c1LineChart"
+                    height="80"
+                    class="comboLineChart"
+                  ></canvas>
+                  <canvas
+                    id="p4c1BarChart"
+                    height="250"
+                    class="comboBarChart"
+                  ></canvas>
+                  <div
+                    class="customXticks d-flex justify-content-around"
+                    id="p4c1customXticks"
+                  ></div>
+                </div>
+                <div
+                  id="p4c1customLegends"
+                  class="d-flex combo-legends align-items-center p2-custom-legends justify-content-center gap-3 mt-0"
+                ></div>
+              </div>
+            </div>
+            <div class="col-6 d-flex px-4 flex-column justify-content-between">
+              <div class="d-flex flex-column gap-0">
+                <h5 class="p2-chart-title text-center fw-bold text-black">
+                  Dividends per share <br />
+                  <span class="opacity-0">143214</span>
+                </h5>
+                <div class="d-flex flex-column gap-0 combo-charts">
+                  <canvas
+                    id="p4c2LineChart"
+                    height="125"
+                    class="comboLineChart"
+                  ></canvas>
+                  <canvas
+                    id="p4c2BarChart"
+                    height="250"
+                    class="comboBarChart"
+                  ></canvas>
+                  <div
+                    class="customXticks d-flex justify-content-around"
+                    id="p4c2customXticks"
+                  ></div>
+                </div>
+                <div
+                  id="p4c2customLegends"
+                  class="d-flex combo-legends align-items-center p2-custom-legends justify-content-center gap-3 mt-0 opacity-0"
+                ></div>
+              </div>
+            </div>
+            <ol class="mt-5 pt-4 mb-0 page-desc info-number-list">
+              <li>
+                Q4 2024 weighted-average diluted shares include the impact of
+                6.9 million shares issued as part of consideration for the
+                acquisition of Global Infrastructure Management, LLC (“GIP”) in
+                October 2024 (the “GIP Transaction”)
+              </li>
+              <li>
+                Amounts above exclude repurchases of employee tax withholdings
+                related to employee stock transactions.
+              </li>
+            </ol>
+          </div>
+        </div>
+        <div class="page-footer bg-black px-4 py-1">
+          <div
+            class="d-flex align-items-center justify-content-between px-2 py-2"
+          >
+            <img
+              src="./assets/blackrock-logo-white.svg"
+              alt="Logo"
+              height="14"
+            />
+            <span class="page-number">3</span>
+          </div>
         </div>
       </section>
     </main>
 
     <script src="./assets/js/jquery.min.js"></script>
     <script src="./assets/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
     <script src="./assets/js/script.js"></script>
   </body>
 </html>

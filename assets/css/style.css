@@ -87,9 +87,13 @@ body {
   font-size: 8pt;
 }
 
-.p1-title {
+.page-title {
   font-size: 22pt;
   line-height: 100%;
+}
+
+.page-subtitle {
+  font-size: 18pt;
 }
 
 .p1-description {
@@ -140,12 +144,113 @@ body {
   background-color: #7c7b7f;
 }
 
-.p1-bar-label{
-    color: #000000;
-    font-weight: 700;
-    font-size: 9pt;
+.p1-bar-label {
+  color: #000000;
+  font-weight: 700;
+  font-size: 9pt;
 }
 
-.p1-foot-desc{
-    font-size: 7.5pt;
+.p1-foot-desc {
+  font-size: 7.5pt;
+}
+
+.p2-chart-title {
+  font-size: 13pt;
+}
+
+.chart-ball {
+  font-size: 7.5pt;
+  font-weight: 600;
+  text-align: center;
+  height: 25px;
+  width: 25px;
+  background-color: #ff4713;
+  border-radius: 100px;
+}
+
+.light-orange-ball {
+  background-color: #ffb194;
+}
+
+.customXticks .tick {
+  font-size: 10.67px;
+  text-align: center;
+  min-width: 30px;
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+.p2-custom-legends {
+  font-size: 9pt;
+}
+
+.legend-color-box {
+  height: 12pt;
+  width: 12pt;
+}
+
+.p2-info {
+  font-size: 9pt;
+  font-weight: 800;
+  color: #000000;
+}
+
+.page-desc {
+  font-size: 7pt;
+  color: #000000;
+  line-height: 120%;
+}
+.comboLineChart {
+  width: 100% !important;
+  height: 125px !important;
+  position: relative;
+  z-index: 1;
+  transform: translateY(70px);
+}
+.comboBarChart {
+  width: 100% !important;
+  height: 250px !important;
+  position: relative;
+  z-index: 0;
+}
+
+.combo-charts{
+  transform: translateY(-30px);
+}
+
+.combo-legends .custom-legend-item:last-of-type .legend-color-box{
+  height: 8px !important;
+  width: 20px !important;
+  border-radius: 100px !important;
+}
+
+.combo-legends{
+  font-size: 8pt !important;
+}
+
+#p4c1LineChart,
+#p4c2LineChart{
+  height: 80px !important;
+}
+
+
+.info-number-list {
+  max-width: 50%;
+  list-style: none;
+  counter-reset: custom-counter;
+  padding-left: 1.5em;
+}
+
+.info-number-list li {
+  padding-left: 15px;
+  counter-increment: custom-counter;
+  position: relative;
+  margin-bottom: 0.5em;
+}
+
+.info-number-list li::before {
+  content: "(" counter(custom-counter) ")";
+  position: absolute;
+  left: 0;
+  font-weight: bold;
 }
