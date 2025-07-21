@@ -1008,21 +1008,41 @@ function p2Chart4() {
   renderCustomLegend(legends, "p2c4customLegend");
 }
 
-function createCustomTicks(customTicksId, labels) {
+function createCustomTicks(customTicksId, labels, breaks = false) {
   const customXticksContainer = document.getElementById(customTicksId);
 
   // Clear old if re-rendering
   customXticksContainer.innerHTML = "";
 
-  // Render each label (with \n split)
   labels.forEach((label) => {
-    const [line1, line2] = label.split(" ");
     const tick = document.createElement("div");
     tick.className = "tick";
-    tick.innerHTML = `${line1}<br>${line2}`;
+
+    if (!breaks) {
+      const words = label.split(" ");
+      const processedWords = [];
+
+      for (let i = 0; i < words.length; i++) {
+        processedWords.push(words[i]);
+
+        // Check if next word exists and both current and next are >= 3 letters
+        if (
+          i < words.length - 1 &&
+          words[i].length > 1
+        ) {
+          processedWords.push("<br>");
+        }
+      }
+
+      tick.innerHTML = processedWords.join(" ");
+    } else {
+      tick.textContent = label;
+    }
+
     customXticksContainer.appendChild(tick);
   });
 }
+
 
 //  PAGE 3 CHARTS
 function createBarAndLineCharts({
@@ -1163,6 +1183,236 @@ function createBarAndLineCharts({
   renderCustomLegend(legends, customLegendsId);
 }
 
+function waterfallChart({
+  elementId = "waterfallChart",
+  labels = [],
+  values = [],
+  valueInfo = [],
+  title = "",
+  relativeColorIncreasing = "#2ca02c",
+  relativeColorDecreasing = "#d62728",
+  totalColor = "#000000",
+  textPrefix = "$",
+  cutLineWidth = 12,
+  customTicksId,
+}) {
+  if (labels.length !== values.length || labels.length < 2) {
+    console.error(
+      "Labels and values must be of same length and at least 2 items."
+    );
+    return;
+  }
+  let sum = 0;
+  // Calculate measure array
+  const measure = ["absolute"];
+  for (let i = 1; i < values.length - 1; i++) {
+    sum += values[i];
+    measure.push("relative");
+  }
+  measure.push("absolute");
+
+  // Calculate total
+  const total =
+    values[0] + values.slice(1, -1).reduce((sum, val) => sum + val, 0);
+  values[values.length - 1] = total;
+
+  const formattedText = values.map((val, i) => {
+    const info = valueInfo.find((v) => v.index === i);
+    const display =
+      val < 0 ? `$(${Math.abs(val)})` : `$${val.toLocaleString()}`;
+    return info ? `${display}<sup>(${info.info})</sup>` : display;
+  });
+
+  const textSizes = labels.map((_, i) => {
+    return i === 0 || i === labels.length - 1 ? 12 : 11; // absolute bars = 16px, others = 12px
+  });
+
+  const data = [
+    {
+      type: "waterfall",
+      orientation: "v",
+      measure: measure,
+      x: labels,
+      y: values,
+      text: formattedText,
+      textposition: "outside",
+      textfont: {
+        family: "Arial Black, sans-serif",
+        size: textSizes,
+        color: "#000000",
+      },
+      decreasing: { marker: { color: relativeColorDecreasing } },
+      increasing: { marker: { color: relativeColorIncreasing } },
+      totals: { marker: { color: totalColor } },
+      connector: {
+        line: { color: "rgba(0,0,0,0)" },
+      },
+    },
+  ];
+
+  const maxY = Math.max(...values);
+  const barWidth = 0.8;
+
+  // Make cut lines 30% wider than the bar
+  const cutLineSpan = barWidth * 1.3;
+  const halfCutSpan = cutLineSpan / 2;
+
+  // Vertical placement just above bottom
+  const cutHeight = maxY * 0.05;
+  const gap = cutHeight * 0.3;
+  const baseY = cutHeight + 200;
+
+  // Bar centers
+  const firstBarX = 0; // index 0
+  const lastBarX = labels.length - 1; // last index
+
+  const shapes = [
+    // Bottom axis line
+    {
+      type: "line",
+      xref: "paper",
+      yref: "y",
+      x0: 0,
+      x1: 1,
+      y0: 0,
+      y1: 0,
+      line: {
+        color: "#7b7c7f",
+        width: 2,
+      },
+    },
+    // Left (first) bar cut line
+    {
+      type: "line",
+      xref: "x",
+      yref: "y",
+      x0: firstBarX - halfCutSpan,
+      x1: firstBarX + halfCutSpan,
+      y0: baseY,
+      y1: baseY + cutHeight,
+      line: { color: "#ffffff", width: cutLineWidth },
+    },
+    // Right (last) bar cut line
+    {
+      type: "line",
+      xref: "x",
+      yref: "y",
+      x0: lastBarX - halfCutSpan,
+      x1: lastBarX + halfCutSpan,
+      y0: baseY,
+      y1: baseY + cutHeight,
+      line: { color: "#ffffff", width: cutLineWidth },
+    },
+  ];
+
+  const layout = {
+    title: { text: "", font: { size: 0 } },
+    xaxis: {
+      showticklabels: false,
+      showgrid: false,
+      zeroline: false,
+      ticks: "",
+    },
+    yaxis: {
+      showticklabels: false,
+      showgrid: false,
+      zeroline: false,
+      ticks: "",
+    },
+    margin: { t: 0, b: 0, l: 0, r: 0 }, // Remove all margins
+    padding: 0, // Not required, but safe to include for clarity
+
+    plot_bgcolor: "#ffffff",
+    paper_bgcolor: "#ffffff",
+
+    shapes: shapes,
+  };
+
+  const capTopY = maxY * 1.2; // Top vertical line for "SUM"
+  const capMidY = maxY * 1.15; // Horizontal line level
+  const capBottomY = maxY * 1.1; // Bottom vertical lines from cap
+  const centerX = (labels.length - 1) / 2;
+
+  const annotations = [
+    {
+      xref: "x",
+      yref: "y",
+      x: centerX,
+      y: capTopY + maxY * 0.06,
+      text:
+        "<b style='font-size: 13px !important;'>$" +
+        sum.toLocaleString() +
+        "</b>",
+      showarrow: false,
+      font: {
+        size: 15,
+        family: "Arial Black, sans-serif",
+        color: "#000",
+      },
+      align: "center",
+    },
+  ];
+
+  const capShapes = [
+    // Vertical line in center pointing up to label
+    {
+      type: "line",
+      xref: "x",
+      yref: "y",
+      x0: centerX,
+      x1: centerX,
+      y0: capMidY,
+      y1: capTopY,
+      line: { color: "#7c7b7f", width: 1 },
+    },
+    // Horizontal line connecting first to last bar
+    {
+      type: "line",
+      xref: "x",
+      yref: "y",
+      x0: 0,
+      x1: labels.length - 1,
+      y0: capMidY,
+      y1: capMidY,
+      line: { color: "#7c7b7f", width: 1 },
+    },
+    // Left vertical line
+    {
+      type: "line",
+      xref: "x",
+      yref: "y",
+      x0: 0,
+      x1: 0,
+      y0: capMidY,
+      y1: capBottomY,
+      line: { color: "#7c7b7f", width: 1 },
+    },
+    // Right vertical line
+    {
+      type: "line",
+      xref: "x",
+      yref: "y",
+      x0: labels.length - 1,
+      x1: labels.length - 1,
+      y0: capMidY,
+      y1: capBottomY,
+      line: { color: "#7c7b7f", width: 1 },
+    },
+  ];
+  layout.annotations = [...(layout.annotations || []), ...annotations];
+  layout.shapes.push(...capShapes);
+
+  const config = {
+    displayModeBar: false,
+    staticPlot: true,
+    responsive: true, // ensures no overflow on resize
+  };
+
+  Plotly.newPlot(elementId, data, layout, config);
+
+  createCustomTicks(customTicksId, labels, false);
+}
+
 // Run the chart when document is ready
 $(document).ready(function () {
   p1Chart1();
@@ -1271,5 +1521,199 @@ $(document).ready(function () {
       { name: "Share repurchases", color: "#000000", infoPoint: 2 },
       { name: "Weighted-average diluted shares", color: "#ff4713" },
     ],
+  });
+
+  waterfallChart({
+    elementId: "waterfallChart1",
+    labels: [
+      "Q4 2023",
+      "Base fees",
+      "Performance fees",
+      "Technology services revenue",
+      "Advisory and other revenue",
+      "Distribution fees",
+      "Securities lending revenue",
+      "Q4 2024",
+    ],
+    values: [4631, 808, 140, 49, 26, 19, 4, 0], // End gets auto-calculated
+    relativeColorIncreasing: "#008b5c",
+    relativeColorDecreasing: "#c00b28",
+    totalColor: "#000000",
+    cutLineWidth: 12,
+    customTicksId: "p5c1customXticks",
+  });
+
+  waterfallChart({
+    elementId: "waterfallChart2",
+    labels: [
+      "Q4 2023",
+      "Base fees",
+      "Performance fees",
+      "Technology services revenue",
+      "Securities lending revenue",
+      "Advisory and other revenue",
+      "Distribution fees",
+      "Q4 2024",
+    ],
+    values: [5197, 375, 63, 25, 12, 6, -1, 0], // End gets auto-calculated
+    relativeColorIncreasing: "#008b5c",
+    relativeColorDecreasing: "#c00b28",
+    totalColor: "#000000",
+    cutLineWidth: 12,
+    customTicksId: "p5c2customXticks",
+  });
+
+  waterfallChart({
+    elementId: "waterfallChart3",
+    labels: [
+      "Q4 2023",
+      "ETFs EQ",
+      "Alts",
+      "Active EQ",
+      "Cash",
+      "ETFs FI",
+      "Multi-Asset",
+      "Non-ETF EQ",
+      "Active FI",
+      "Non-ETF FI",
+      "Q4 2024",
+    ],
+    values: [3605, 273, 273, 74, 53, 49, 27, 26, 26, 11, 4417], // End gets auto-calculated
+    valueInfo: [{ index: 2, info: 1 }],
+    relativeColorIncreasing: "#008b5c",
+    relativeColorDecreasing: "#c00b28",
+    totalColor: "#000000",
+    cutLineWidth: 12,
+    customTicksId: "p6c1customXticks",
+  });
+
+  waterfallChart({
+    elementId: "waterfallChart4",
+    labels: [
+      "Q4 2023",
+      "Alts",
+      "ETFs EQ",
+      "Cash",
+      "Non-ETF EQ",
+      "ETFs FI",
+      "Active EQ",
+      "Non-ETF FI",
+      "Active FI",
+      "Multi-Asset",
+      "Q4 2024",
+    ],
+    values: [4030, 265, 66, 29, 11, 6, 5, 3, 1, 1, 4417], // End gets auto-calculated
+    valueInfo: [{ index: 1, info: 1 }],
+    relativeColorIncreasing: "#008b5c",
+    relativeColorDecreasing: "#c00b28",
+    totalColor: "#000000",
+    cutLineWidth: 12,
+    customTicksId: "p6c2customXticks",
+  });
+
+  waterfallChart({
+    elementId: "waterfallChart5",
+    labels: [
+      "Q4 2023",
+      "General & administration",
+      "Sales, asset & account",
+      "Employee comp. & benefits",
+      "Q4 2024",
+    ],
+    values: [2915, -1, 141, 296, 3351], // End gets auto-calculated
+    valueInfo: [],
+    relativeColorIncreasing: "#c00b28",
+    relativeColorDecreasing: "#008b5c",
+    totalColor: "#000000",
+    cutLineWidth: 12,
+    customTicksId: "p7c1customXticks",
+  });
+
+  waterfallChart({
+    elementId: "waterfallChart6",
+    labels: [
+      "Q4 2023",
+      "Sales, asset & account",
+      "General & administration",
+      "Employee comp. & benefits",
+      "Q4 2024",
+    ],
+    values: [3069, 34, 39, 209, 3351], // End gets auto-calculated
+    valueInfo: [],
+    relativeColorIncreasing: "#c00b28",
+    relativeColorDecreasing: "#008b5c",
+    totalColor: "#000000",
+    cutLineWidth: 12,
+    customTicksId: "p7c2customXticks",
+  });
+
+  waterfallChart({
+    elementId: "waterfallChart7",
+    labels: [
+      "2023",
+      "Base Fees",
+      "Performance fees",
+      "Technology services revenue",
+      "Advisory and other revenue",
+      "Distribution fees",
+      "Securities lending revenue",
+      "2024",
+    ],
+    values: [17859, 1761, 653, 118, 65, 11, -60, 20407], // End gets auto-calculated
+    valueInfo: [],
+    relativeColorIncreasing: "#008b5c",
+    relativeColorDecreasing: "#c00b28",
+    totalColor: "#000000",
+    cutLineWidth: 12,
+    customTicksId: "p8c1customXticks",
+  });
+
+  waterfallChart({
+    elementId: "waterfallChart8",
+    labels: [
+      "Q4 2023",
+      "ETFs EQ",
+      "Alts",
+      "Active EQ",
+      "Cash",
+      "ETFs FI",
+      "Multi-Asset",
+      "Non-ETF EQ",
+      "Active FI",
+      "Non-ETF FI",
+      "Q4 2024",
+    ],
+    values: [14399, 706, 365, 166, 140, 137, 75, 55, 41, 16, 16100], // End gets auto-calculated
+    valueInfo: [],
+    relativeColorIncreasing: "#008b5c",
+    relativeColorDecreasing: "#c00b28",
+    totalColor: "#000000",
+    cutLineWidth: 12,
+    customTicksId: "p9c1customXticks",
+  });
+
+  waterfallChart({
+    elementId: "waterfallChart10",
+    labels: [
+      "&nbsp;2023&nbsp;",
+      "General & administration",
+      "Sales, asset & account",
+      "Employee comp. & benefits",
+      "&nbsp;2024&nbsp;"
+    ],
+    values: [11266, 104, 277, 650, 0], // End gets auto-calculated
+    valueInfo: [],
+    relativeColorIncreasing: "#c00b28",
+    relativeColorDecreasing: "#008b5c",
+    totalColor: "#000000",
+    cutLineWidth: 12,
+    customTicksId: "p10c1customXticks",
+  });
+});
+document.addEventListener("DOMContentLoaded", function () {
+  const pageNumberElements = document.querySelectorAll(".page-number");
+
+  pageNumberElements.forEach((el, index) => {
+    el.textContent = index + 1;
   });
 });

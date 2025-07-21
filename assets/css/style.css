@@ -254,3 +254,11 @@ body {
   left: 0;
   font-weight: bold;
 }
+
+.plot-container{
+  width: 100% !important;
+}
+
+.customXticksSm .tick{
+  font-size: 8px !important;
+}
