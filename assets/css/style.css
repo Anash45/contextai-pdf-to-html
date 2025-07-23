@@ -395,3 +395,19 @@ body {
   line-height: 125%;
   color: #000000;
 }
+
+.p12-chart-title{
+  font-size: 16pt;
+  font-weight: 800;
+}
+.stack-label{
+  font-size: 11pt;
+  font-weight: 700;
+  color: #000000;
+}
+
+.color-circle{
+  height: 18px;
+  width: 18px;
+  border-radius: 100px;
+}

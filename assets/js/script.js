@@ -1026,10 +1026,7 @@ function createCustomTicks(customTicksId, labels, breaks = false) {
         processedWords.push(words[i]);
 
         // Check if next word exists and both current and next are >= 3 letters
-        if (
-          i < words.length - 1 &&
-          words[i].length > 1
-        ) {
+        if (i < words.length - 1 && words[i].length > 1) {
           processedWords.push("<br>");
         }
       }
@@ -1042,7 +1039,6 @@ function createCustomTicks(customTicksId, labels, breaks = false) {
     customXticksContainer.appendChild(tick);
   });
 }
-
 
 //  PAGE 3 CHARTS
 function createBarAndLineCharts({
@@ -1699,7 +1695,7 @@ $(document).ready(function () {
       "General & administration",
       "Sales, asset & account",
       "Employee comp. & benefits",
-      "&nbsp;2024&nbsp;"
+      "&nbsp;2024&nbsp;",
     ],
     values: [11266, 104, 277, 650, 0], // End gets auto-calculated
     valueInfo: [],
@@ -1716,4 +1712,258 @@ document.addEventListener("DOMContentLoaded", function () {
   pageNumberElements.forEach((el, index) => {
     el.textContent = index + 1;
   });
+});
+function p12Charts({ canvasId, datasets }) {
+  console.log(canvasId);
+  const ctx = document.getElementById(canvasId).getContext("2d");
+
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: ["Bar 1", "Bar 2"],
+      datasets: datasets,
+    },
+    options: {
+      responsive: true,
+      layout: {
+        padding: {
+          top: 20,
+          bottom: 0,
+          left: 0,
+          right: 0,
+        },
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: { enabled: false },
+        datalabels: {
+          display: true,
+          color: "#fff",
+          backgroundColor: function (context) {
+            const value = context.dataset.data[context.dataIndex];
+            return value < 15 ? context.dataset.backgroundColor : null;
+          },
+          borderRadius: 4,
+          padding: function (context) {
+            const value = context.dataset.data[context.dataIndex];
+            return value < 15 ? 4 : 0;
+          },
+          font: function (context) {
+            const value = context.dataset.data[context.dataIndex];
+            let size = 12;
+            if (value < 15) size = 10;
+
+            return { weight: "bold", size };
+          },
+          formatter: (value) => value,
+
+          // 🔁 Alternate horizontal alignment
+          align: function (context) {
+            const value = context.dataset.data[context.dataIndex];
+            if (value < 15) {
+              // Alternate between left and right
+              return context.dataIndex % 2 === 0 ? "left" : "right";
+            }
+            return "center";
+          },
+
+          anchor: "center", // Keep vertical center to prevent jumping
+          offset: 20, // Push it outward slightly
+          textAlign: "center",
+          clip: false, // Let labels overflow the chart area if needed
+        },
+      },
+      scales: {
+        x: {
+          stacked: true,
+          grid: { display: false, drawBorder: false },
+          ticks: { display: false },
+        },
+        y: {
+          stacked: true,
+
+          grid: {
+            drawBorder: false,
+            color: (ctx) => (ctx.tick.value === 0 ? "#7b7c7f" : "transparent"),
+            lineWidth: (ctx) => (ctx.tick.value === 0 ? 2 : 0),
+          },
+          ticks: { display: false },
+          border: { display: false },
+        },
+      },
+    },
+    plugins: [
+      ChartDataLabels,
+      {
+        id: "totalLabelPlugin",
+        afterDatasetsDraw(chart, args, pluginOptions) {
+          const {
+            ctx,
+            data,
+            chartArea: { top },
+            scales: { x, y },
+          } = chart;
+
+          ctx.save();
+          data.labels.forEach((label, i) => {
+            let total = 0;
+            data.datasets.forEach((ds) => {
+              const val = ds.data[i];
+              if (typeof val === "number") total += val;
+            });
+
+            // Position above the top of the bar
+            const xPos = x.getPixelForValue(i);
+            const yPos = y.getPixelForValue(total) - 10;
+
+            ctx.fillStyle = "#000";
+            ctx.font = "bold 9pt sans-serif";
+            ctx.textAlign = "center";
+            ctx.fillText("$" + total, xPos, yPos);
+          });
+          ctx.restore();
+        },
+      },
+    ],
+  });
+}
+
+function renderStackLabels(datasets) {
+  const container = document.getElementById("stack-labels");
+  if (!container) return;
+
+  // Clear old labels
+  container.innerHTML = "";
+
+  // Loop in reverse order
+  datasets.slice().reverse().forEach((item) => {
+    const labelDiv = document.createElement("div");
+    labelDiv.className = "stack-label d-flex align-items-center mb-2";
+
+    const circle = document.createElement("span");
+    circle.className = "color-circle me-2";
+    circle.style.backgroundColor = item.backgroundColor;
+
+    const labelText = document.createElement("span");
+    labelText.textContent = item.label;
+
+    labelDiv.appendChild(circle);
+    labelDiv.appendChild(labelText);
+    container.appendChild(labelDiv);
+  });
+}
+
+$(document).ready(function () {
+  p12Charts({
+    canvasId: "p12Chart1Canvas",
+    datasets: [
+      {
+        label: "Institutional",
+        data: [84, 90],
+        backgroundColor: "#000000",
+      },
+      {
+        label: "Institutional",
+        data: [75, 76],
+        backgroundColor: "#ff4713",
+      },
+      {
+        label: "Institutional",
+        data: [51, 170],
+        backgroundColor: "#7c7b7f",
+      },
+      {
+        label: "Institutional",
+        data: [42, 43],
+        backgroundColor: "#9062bc",
+      },
+      {
+        label: "Institutional",
+        data: [34, 38],
+        backgroundColor: "#fc9bb3",
+      },
+      {
+        label: "Retail",
+        data: [28, 27],
+        backgroundColor: "#d6d5dd",
+      },
+      {
+        label: "Multi-alternatives",
+        data: [13, 11],
+        backgroundColor: "#ffd838",
+      },
+    ],
+  });
+
+  p12Charts({
+    canvasId: "p12Chart2Canvas",
+    datasets: [
+      {
+        label: "Liquid credit",
+        data: [84, 90],
+        backgroundColor: "#000000",
+      },
+      {
+        label: "Liquid alternatives",
+        data: [74, 76],
+        backgroundColor: "#ff4713",
+      },
+      {
+        label: "Infrastructure",
+        data: [36, 110],
+        backgroundColor: "#7c7b7f",
+      },
+      {
+        label: "Private equity",
+        data: [35, 36],
+        backgroundColor: "#9062bc",
+      },
+      {
+        label: "Private credit",
+        data: [31, 32],
+        backgroundColor: "#fc9bb3",
+      },
+      {
+        label: "Real estate",
+        data: [28, 26],
+        backgroundColor: "#d6d5dd",
+      },
+      {
+        label: "Multi-alternatives",
+        data: [7, 7],
+        backgroundColor: "#ffd838",
+      },
+    ],
+  });
+
+  renderStackLabels([
+    {
+      label: "Liquid credit",
+      backgroundColor: "#000000",
+    },
+    {
+      label: "Liquid alternatives",
+      backgroundColor: "#ff4713",
+    },
+    {
+      label: "Infrastructure",
+      backgroundColor: "#7c7b7f",
+    },
+    {
+      label: "Private equity",
+      backgroundColor: "#9062bc",
+    },
+    {
+      label: "Private credit",
+      backgroundColor: "#fc9bb3",
+    },
+    {
+      label: "Real estate",
+      backgroundColor: "#d6d5dd",
+    },
+    {
+      label: "Multi-alternatives",
+      backgroundColor: "#ffd838",
+    },
+  ]);
 });

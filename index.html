@@ -1615,6 +1615,99 @@
         </div>
       </section>
       <section class="page d-flex flex-column">
+        <div class="content pt-5 px-4 flex-grow-1 position-relative">
+          <div class="d-flex flex-column text-center mb-2">
+            <h3 class="fw-extrabold text-orange page-title">
+              Alternatives at BlackRock
+            </h3>
+            <h3 class="fw-normal text-orange page-subtitle">($ in billions)</h3>
+          </div>
+          <div class="p12-charts d-flex position-relative mt-5 row px-4">
+            <div class="col-4 d-flex flex-column">
+              <p class="text-center fw-bold text-black p12-chart-title">
+                Client Assets
+              </p>
+              <canvas
+                id="p12Chart1Canvas"
+                class="flex-grow p12-canvas"
+                style="height: 300px !important"
+              ></canvas>
+            </div>
+            <div class="col-4 d-flex flex-column">
+              <p class="text-center fw-bold text-black p12-chart-title">
+                Fee-Paying AUM
+              </p>
+              <canvas
+                id="p12Chart2Canvas"
+                class="flex-grow p12-canvas"
+                style="height: 300px !important"
+              ></canvas>
+            </div>
+            <div class="col-4 d-flex flex-column">
+              <div id="stack-labels" class="mx-auto mt-auto"></div>
+            </div>
+          </div>
+          <div class="d-flex position-relative">
+            <div class="col-4 d-flex text-center mt-1">
+              <div class="col-6"><p class="p1-bar-label mb-0">Q4 2023</p></div>
+              <div class="col-6">
+                <p class="p1-bar-label mb-0">Q4 2024</p>
+              </div>
+            </div>
+            <div class="col-4 d-flex text-center mt-1">
+              <div class="col-6"><p class="p1-bar-label mb-0">Q4 2023</p></div>
+              <div class="col-6">
+                <p class="p1-bar-label mb-0">Q4 2024</p>
+              </div>
+            </div>
+            <div class="col-4 d-flex text-center mt-1 opacity-0">
+              <div class="col-6"><p class="p1-bar-label mb-0">hide</p></div>
+              <div class="col-6">
+                <p class="p1-bar-label mb-0">hide</p>
+              </div>
+            </div>
+          </div>
+          <p class="p1-foot-desc mt-3 text-black mb-0 px-4">
+            <span class="fw-bold d-block">Definitions:</span>
+            <span class="text-decoration-underline">Client Assets:</span>
+            Alternative assets at BlackRock across reported AUM and
+            non-fee-paying committed capital, co-investments and market related
+            gains on invested assets. <br /><span
+              class="text-decoration-underline"
+              >Fee-Paying AUM:</span
+            >
+            Assets reported in BlackRock's AUM. Includes both invested capital
+            and committed capital that is fee-paying in its commitment stage.
+            <br /><span class="text-decoration-underline">Private Credit:</span>
+            Primarily represents Direct Lending, Opportunistic and Venture Debt
+            strategies. It does not include private credit assets across
+            infrastructure and real estate debt, as well as assets in private
+            placements and multi-strategy credit funds, which are reported
+            within fixed income and multi-asset. <br /><span
+              class="text-decoration-underline"
+              >Liquid Alternatives:</span
+            >
+            Includes hedge funds and hedge fund solutions (funds of funds).
+            <br /><span class="text-decoration-underline">Liquid Credit:</span>
+            Active liquid credit strategies (such as high yield, bank loans, and
+            collateralized loans) included in fixed income AUM. <br />
+            Totals may not add due to rounding.
+          </p>
+        </div>
+        <div class="page-footer bg-black px-4 py-1">
+          <div
+            class="d-flex align-items-center justify-content-between px-2 py-2"
+          >
+            <img
+              src="./assets/blackrock-logo-white.svg"
+              alt="Logo"
+              height="14"
+            />
+            <span class="page-number">1</span>
+          </div>
+        </div>
+      </section>
+      <section class="page d-flex flex-column">
         <div class="content pt-4 mt-2 px-3 flex-grow-1 position-relative">
           <div class="d-flex flex-column text-center mb-2">
             <h3 class="fw-extrabold text-orange page-title">
@@ -2726,8 +2819,8 @@
               financial measures calculated in accordance with GAAP and our
               reconciliations on page 14 of this earnings release supplement,
               our current earnings release dated January 15, 2025, and
-              BlackRock’s other periodic reports, which are available on
-              BlackRock’s website at
+              BlackRock's other periodic reports, which are available on
+              BlackRock's website at
               <a href="#" class="text-orange fw-bold">www.blackrock.com</a>.
             </p>
           </div>
