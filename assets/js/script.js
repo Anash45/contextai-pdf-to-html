@@ -1836,15 +1836,45 @@ function renderStackLabels(datasets) {
   container.innerHTML = "";
 
   // Loop in reverse order
-  datasets.slice().reverse().forEach((item) => {
+  datasets
+    .slice()
+    .reverse()
+    .forEach((item) => {
+      const labelDiv = document.createElement("div");
+      labelDiv.className = "stack-label d-flex align-items-center mb-2";
+
+      const circle = document.createElement("span");
+      circle.className = "color-circle me-2";
+      circle.style.backgroundColor = item.backgroundColor;
+
+      const labelText = document.createElement("span");
+      labelText.textContent = item.label;
+
+      labelDiv.appendChild(circle);
+      labelDiv.appendChild(labelText);
+      container.appendChild(labelDiv);
+    });
+}
+
+function renderPieLabels({ canvasId, datasets }) {
+  console.log(datasets);
+  const container = document.getElementById(canvasId);
+  if (!container) return;
+
+  // Clear old labels
+  container.innerHTML = "";
+
+  // Loop in reverse order
+  datasets.forEach((item) => {
     const labelDiv = document.createElement("div");
-    labelDiv.className = "stack-label d-flex align-items-center mb-2";
+    labelDiv.className = "pie-label d-flex align-items-center mb-1";
 
     const circle = document.createElement("span");
-    circle.className = "color-circle me-2";
-    circle.style.backgroundColor = item.backgroundColor;
+    circle.className = "pie-color-square me-1";
+    circle.style.backgroundColor = item.color;
 
     const labelText = document.createElement("span");
+    labelText.classList.add('lh-sm');
     labelText.textContent = item.label;
 
     labelDiv.appendChild(circle);
@@ -1852,6 +1882,114 @@ function renderStackLabels(datasets) {
     container.appendChild(labelDiv);
   });
 }
+function createPieChart({ canvasId, dataset }) {
+  const ctx = document.getElementById(canvasId).getContext("2d");
+
+  const data = {
+    labels: dataset.map((item) => item.label),
+    datasets: [
+      {
+        data: dataset.map((item) => item.value),
+        backgroundColor: dataset.map((item) => item.color),
+        borderWidth: 0,
+      },
+    ],
+  };
+
+  new Chart(ctx, {
+    type: "pie",
+    data: data,
+    options: {
+      responsive: true,
+      layout: {
+        padding: {
+          top: 25,
+          bottom: 25,
+          left: 25,
+          right: 25,
+        },
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: { enabled: false },
+        datalabels: {
+          color: (context) => {
+            // Get the color of the corresponding slice
+            const bgColor = context.dataset.backgroundColor[context.dataIndex];
+            return bgColor;
+          },
+          formatter: (value) => value + "%",
+          font: {
+            weight: "bold",
+            size: 11,
+          },
+          anchor: "end",
+          align: "end",
+          offset: 0,
+        },
+      },
+    },
+    plugins: [ChartDataLabels],
+  });
+}
+
+function renderRevenueTable(dataset, tableId) {
+  const table = document.getElementById(tableId);
+  if (!table) return;
+
+  const showSequential = dataset.every(item => item.values.length > 1);
+
+  // Clear previous content
+  table.innerHTML = "";
+
+  // Create header
+  const thead = document.createElement("thead");
+  thead.innerHTML = `
+    <tr class="text-start pt-head-row">
+      <th>Percentage Change</th>
+      <th class="text-end">Year-over-Year</th>
+      ${showSequential ? '<th class="text-end">Sequential</th>' : ''}
+    </tr>
+  `;
+  table.appendChild(thead);
+
+  // Create body
+  const tbody = document.createElement("tbody");
+  let totalYearly = 0;
+  let totalSequential = 0;
+
+  dataset.forEach(item => {
+    const row = document.createElement("tr");
+    row.className = "text-start pt-values-row";
+
+    const val1 = item.values[0];
+    const val2 = item.values[1];
+
+    // Add values to totals if valid
+    if (!isNaN(val1)) totalYearly += val1;
+    if (showSequential && !isNaN(val2)) totalSequential += val2;
+
+    row.innerHTML = `
+      <td>${item.label}</td>
+      <td class="text-end">${val1 !== 0 ? val1 + "%" : "-%"}</td>
+      ${showSequential ? `<td class="text-end">${val2 !== 0 ? val2 + "%" : "-%"}</td>` : ''}
+    `;
+    tbody.appendChild(row);
+  });
+
+  // Add total row
+  const totalRow = document.createElement("tr");
+  totalRow.className = "text-start fw-bold pt-foot-row";
+  totalRow.innerHTML = `
+    <td>Total</td>
+    <td class="text-end">${Math.round(totalYearly / dataset.length)}%</td>
+    ${showSequential ? `<td class="text-end">${Math.round(totalSequential / dataset.length)}%</td>` : ''}
+  `;
+  tbody.appendChild(totalRow);
+
+  table.appendChild(tbody);
+}
+
 
 $(document).ready(function () {
   p12Charts({
@@ -1966,4 +2104,188 @@ $(document).ready(function () {
       backgroundColor: "#ffd838",
     },
   ]);
+
+  createPieChart({
+    canvasId: "pieChart1",
+    dataset: [
+      { label: "Base fees", value: 74, color: "#ff4713" },
+      { label: "Performance fees", value: 8, color: "#008b5c" },
+      { label: "Securities lending revenue", value: 3, color: "#ffce00" },
+      { label: "Technology services revenue", value: 8, color: "#fc9bb3" },
+      { label: "Distribution fees", value: 6, color: "#c00b28" },
+      { label: "Advisory and other revenue", value: 1, color: "#9062bc" },
+    ],
+  });
+
+  renderPieLabels({
+    canvasId: "pieLabels1",
+    datasets: [
+      { label: "Base fees", value: 74, color: "#ff4713" },
+      { label: "Performance fees", value: 8, color: "#008b5c" },
+      { label: "Securities lending revenue", value: 3, color: "#ffce00" },
+      { label: "Technology services revenue", value: 8, color: "#fc9bb3" },
+      { label: "Distribution fees", value: 6, color: "#c00b28" },
+      { label: "Advisory and other revenue", value: 1, color: "#9062bc" },
+    ],
+  });
+
+  renderRevenueTable(
+    [
+      {
+        label: "Base fees",
+        values: [23, 10],
+      },
+      {
+        label: "Securities lending revenue",
+        values: [3, 8],
+      },
+      {
+        label: "Performance fees",
+        values: [45, 16],
+      },
+      {
+        label: "Technology services revenue",
+        values: [13, 6],
+      },
+      {
+        label: "Distribution fees",
+        values: [6, 0], // "-" interpreted as 0
+      },
+      {
+        label: "Advisory and other revenue",
+        values: [79, 11],
+      },
+    ],
+    "pieTable1"
+  );
+
+  
+  createPieChart({
+    canvasId: "pieChart2",
+    dataset: [
+      { label: "Employee comp. & benefits", value: 53, color: "#ff4713" },
+      { label: "General & administration", value: 17, color: "#008b5c" },
+      { label: "Sales, asset & account", value: 30, color: "#ffce00" },
+    ],
+  });
+
+  renderPieLabels({
+    canvasId: "pieLabels2",
+    datasets: [
+      { label: "Employee comp. & benefits", value: 53, color: "#ff4713" },
+      { label: "General & administration", value: 17, color: "#008b5c" },
+      { label: "Sales, asset & account", value: 30, color: "#ffce00" },
+    ],
+  });
+
+  renderRevenueTable(
+    [
+      {
+        label: "Employee comp. & benefits",
+        values: [23, 10],
+      },
+      {
+        label: "Sales, asset & account",
+        values: [3, 8],
+      },
+      {
+        label: "General & administration",
+        values: [45, 16],
+      },
+    ],
+    "pieTable2"
+  );
+
+  
+  createPieChart({
+    canvasId: "pieChart3",
+    dataset: [
+      { label: "Base fees", value: 74, color: "#ff4713" },
+      { label: "Performance fees", value: 8, color: "#008b5c" },
+      { label: "Securities lending revenue", value: 3, color: "#ffce00" },
+      { label: "Technology services revenue", value: 8, color: "#fc9bb3" },
+      { label: "Distribution fees", value: 6, color: "#c00b28" },
+      { label: "Advisory and other revenue", value: 1, color: "#9062bc" },
+    ],
+  });
+
+  renderPieLabels({
+    canvasId: "pieLabels3",
+    datasets: [
+      { label: "Base fees", value: 74, color: "#ff4713" },
+      { label: "Performance fees", value: 8, color: "#008b5c" },
+      { label: "Securities lending revenue", value: 3, color: "#ffce00" },
+      { label: "Technology services revenue", value: 8, color: "#fc9bb3" },
+      { label: "Distribution fees", value: 6, color: "#c00b28" },
+      { label: "Advisory and other revenue", value: 1, color: "#9062bc" },
+    ],
+  });
+
+  renderRevenueTable(
+    [
+      {
+        label: "Base fees",
+        values: [23],
+      },
+      {
+        label: "Securities lending revenue",
+        values: [3],
+      },
+      {
+        label: "Performance fees",
+        values: [45],
+      },
+      {
+        label: "Technology services revenue",
+        values: [13],
+      },
+      {
+        label: "Distribution fees",
+        values: [6], // "-" interpreted as 0
+      },
+      {
+        label: "Advisory and other revenue",
+        values: [79],
+      },
+    ],
+    "pieTable3"
+  );
+  
+
+  
+  createPieChart({
+    canvasId: "pieChart4",
+    dataset: [
+      { label: "Employee comp. & benefits", value: 53, color: "#ff4713" },
+      { label: "General & administration", value: 17, color: "#008b5c" },
+      { label: "Sales, asset & account", value: 30, color: "#ffce00" },
+    ],
+  });
+
+  renderPieLabels({
+    canvasId: "pieLabels4",
+    datasets: [
+      { label: "Employee comp. & benefits", value: 53, color: "#ff4713" },
+      { label: "General & administration", value: 17, color: "#008b5c" },
+      { label: "Sales, asset & account", value: 30, color: "#ffce00" },
+    ],
+  });
+
+  renderRevenueTable(
+    [
+      {
+        label: "Employee comp. & benefits",
+        values: [23, 10],
+      },
+      {
+        label: "Sales, asset & account",
+        values: [3, 8],
+      },
+      {
+        label: "General & administration",
+        values: [45, 16],
+      },
+    ],
+    "pieTable4"
+  );
 });

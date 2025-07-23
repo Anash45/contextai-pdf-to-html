@@ -252,7 +252,7 @@ body {
   content: "(" counter(custom-counter) ")";
   position: absolute;
   left: 0;
-  font-weight: bold;
+  font-weight: 400;
 }
 
 .plot-container{
@@ -410,4 +410,81 @@ body {
   height: 18px;
   width: 18px;
   border-radius: 100px;
+}
+
+.table-13 th,.table-13 td{
+  font-size: 8.3pt;
+  padding: 8px;
+}
+
+.t13-black-row th{
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.t13-orange-cell{
+  background-color: #ff4713 !important;
+}
+
+.t13-info-row th,
+.t13-black-row th{
+  font-size: 6.9pt;
+}
+
+.t13-gray-row th{
+  background-color: #bfbfbf !important;
+}
+
+.table-13 td,.table-13 th{
+  vertical-align: middle;
+}
+
+.t13-black-row th,
+.t13-gray-row th,
+.t13-white-row td{
+  padding: 5px 8px !important;
+  line-height: 125%;
+}
+
+.pie-chart{
+  height: 180px !important;
+  width: 180px !important;
+}
+.pie-label{
+  font-size: 8pt !important;
+  font-weight: 500;
+}
+.pie-color-square{
+  height: 8px !important;
+  width: 8px !important;
+}
+
+.pie-table th,.pie-table td{
+  font-size: 8pt !important;
+}
+.pie-table{
+  border: 3px solid #000000;
+  border-left: 0;
+  padding: 8px 0 !important;
+  border-right: 0;
+}
+.pie-table td,.pie-table th{
+  padding: 2px 8px;
+}
+
+.pt-values-row td{
+  padding-left: 30px !important;
+  color: #00000b;
+}
+
+.pt-head-row>*,
+.pt-foot-row>*{
+  color: #ff4713 !important;
+}
+
+.pt-head-row th{
+  padding-top: 8px !important;
+}
+.pt-foot-row th{
+  padding-bottom: 8px !important;
 }
